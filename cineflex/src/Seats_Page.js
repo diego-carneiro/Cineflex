@@ -7,24 +7,34 @@ const numbers = [
 export default function Seats(props) {
 
     return (
-        <div className="seatsContainer">
-            <div className="interactionBox">
-                <h1 className="interaction">Selecione o(s) assento(s)</h1>
-            </div>
-            <div className="seatsBox">
+        <div>
+            <div className="seatsContainer">
+                <div className="interactionBox">
+                    <h1 className="interaction">Selecione o(s) assento(s)</h1>
+                </div>
+                <div className="seatsBox">
                     {numbers.map((data) => {
-                        return <Seats_Sort seatsNumber={data.seatsNumber} />
+                        return <Seats_Sort seatNumber={data.seatNumber} />
                     })}
+                </div>
             </div>
+            <div className="statusBox">
+                <div className="seatStatus selected"></div>
+                <div className="seatStatus available"></div>
+                <div className="seatStatus unavailable"></div>
+            </div>
+
             <div className="purchaseBox">
                 <p class="inputTitle">Nome do comprador:</p>
                 <input placeholder="Digite seu nome..." id="input" />
                 <p class="inputTitle">CPF do comprador:</p>
                 <input placeholder="Digite seu CPF..." id="input" />
-                <div className="buyingButton">
-                    <p class="buttonText">Reservar assento(s)</p>
-                </div>
             </div>
+            <div className="buyingButton">
+                <p class="buttonText">Reservar assento(s)</p>
+            </div>
+
+
         </div>
     );
 }
