@@ -48,8 +48,12 @@ export default function Schedule() {
             </div>
             <Footer>
                 <div>
-                    <img className="footerImg" src={footerInfo.posterURL}/>
-                    <p className="footerTitle">{footerInfo.title}</p>
+                    <div className="">
+                        <img className="footerImg" src={footerInfo.posterURL} />
+                    </div>
+                    <div>
+                        <h1 className="footerTitle">{footerInfo.title}</h1>
+                    </div>
                 </div>
             </Footer>
         </div>

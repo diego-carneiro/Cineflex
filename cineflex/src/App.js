@@ -20,8 +20,11 @@ export default function App() {
                 <Route path="/sessoes/:idFilme" exact>
                     <Schedule />
                 </Route>
-                <Route path="/assentos/:idSessao">
+                <Route path="/assentos/:idSessao" exact>
                     {<Seats /> }
+                </Route>
+                <Route path="/sucesso" exact>
+                    {<Successful /> }
                 </Route>
             </Switch>
         </BrowserRouter>

@@ -5,6 +5,35 @@ import { Link } from 'react-router-dom';
 
 export default function Seats(props) {
 
+    const initialValue = {
+
+        name: '',
+        cpf: '',
+    }
+
+    const [customer, setCustomer] = useState(initialValue)
+    console.log(customer);
+
+    function onChange(ev) {
+        const { name, value } = ev.target;
+        console.log({ name, value })
+
+        setCustomer({ ...customer, [name]: value });
+        console.log(customer);
+    }
+
+    function onSubmit(ev) {
+        ev.preventDefault();
+
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/cineflex/seats/book-many`)
+
+        promise.then((response) => {
+
+
+        });
+    }
+
+
     const [id, setId] = useState([]);
     const {
         idSessao,
@@ -19,9 +48,9 @@ export default function Seats(props) {
             setSelected(response.data.seats.map((seat) => {
                 if (seat.isAvailable === false) {
                     return "unavailable"
-                }else{
-                    return "available"   
-                }    
+                } else {
+                    return "available"
+                }
             }))
         })
     }, []);
@@ -31,13 +60,28 @@ export default function Seats(props) {
         if (selected[index] === "available") {
             selected[index] = "selected";
             setSelected([...selected]);
-        } else if(selected[index] === "unavailable"){
-            alert ("A poltrona está ocupada");
+        } else if (selected[index] === "unavailable") {
+            alert("A poltrona está ocupada");
         } else {
             selected[index] = "available"
             setSelected([...selected]);
         }
     }
+    function reservarAssento() {
+
+        const assentosSelect = [];
+        console.log(assentosSelect)
+
+        selected.filter((status, index) => {
+            if (status === "selected") {
+                assentosSelect.push(index);
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
     return (
         <div>
             <div className="seatsContainer">
@@ -58,14 +102,16 @@ export default function Seats(props) {
             </div>
 
             <div className="purchaseBox">
-                <p class="inputTitle">Nome do comprador:</p>
-                <input placeholder="Digite seu nome..." id="input" />
+                <label class="inputTitle">Nome do comprador:</label>
+                <input placeholder="Digite seu nome..." id="name" name="name" type="text" onChange={onChange} />
                 <p class="inputTitle">CPF do comprador:</p>
-                <input placeholder="Digite seu CPF..." id="input" />
+                <input placeholder="Digite seu CPF..." id="cpf" name="cpf" type="text" onChange={onChange} />
             </div>
-            <div className="buyingButton">
-                <p class="buttonText">Reservar assento(s)</p>
-            </div>
+            <Link to="/sucesso">
+                <div className="bottomButton" onClick={reservarAssento}>
+                    <p class="buttonText">Reservar assento(s)</p>
+                </div>
+            </Link>
         </div>
     );
 }
