@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 export default function Successful(props) {
+    console.log(props.sucessoInfo)
 
     return (
         <div>
@@ -10,18 +11,18 @@ export default function Successful(props) {
             </div>
 
             <div className="movieInfo">
-                <h1>Filme e sessão</h1>
-                <p>.</p>
-                <p>.</p>
+                <p className="sucessTitle">Filme e sessão</p>
+                <p className="sucessText">{props.sucessoInfo.filmeNome}</p>
+                <p className="sucessText">{props.sucessoInfo.data} {props.sucessoInfo.horario}</p>
             </div>
             <div className="ticketInfo">
-                <h1>Ingressos</h1>
-                <p>.</p>
-                <p>.</p>
+                <p className="sucessTitle">Ingressos</p>
+                {props.sucessoInfo.assentos.map((seat) => <p className="sucessText"> Assento {seat}</p>)}
             </div>
             <div className="customerInfo">
-                <p>Nome:</p>
-                <p>CPF:</p>
+                <p className="sucessTitle">Comprador</p>
+                <p className="sucessText">Nome: {props.sucessoInfo.nome}</p>
+                <p className="sucessText">CPF: {props.sucessoInfo.cpf}</p>
             </div>
             <Link to="/">
                 <div className="bottomButton">

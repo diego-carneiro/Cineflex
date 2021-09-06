@@ -13,6 +13,7 @@ export default function Front_Page() {
          console.log(response)
          setFilmes([...response.data])
       })
+      promise.catch((error) => alert(error))
    }, []);
 
    return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
-import { Link } from 'react-router-dom';
+import { useParams, useHistory } from "react-router";
+import Footer from "./Footer";
 
 export default function Seats(props) {
 
@@ -11,34 +11,27 @@ export default function Seats(props) {
         cpf: '',
     }
 
+    let history = useHistory();
+
     const [customer, setCustomer] = useState(initialValue)
-    console.log(customer);
+
+    const [footerInfo, setFooterInfo] = useState([]);
 
     function onChange(ev) {
         const { name, value } = ev.target;
         console.log({ name, value })
 
         setCustomer({ ...customer, [name]: value });
-        console.log(customer);
     }
-
-    function onSubmit(ev) {
-        ev.preventDefault();
-
-        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/cineflex/seats/book-many`)
-
-        promise.then((response) => {
-
-
-        });
-    }
-
 
     const [id, setId] = useState([]);
     const {
         idSessao,
     } = useParams();
     const [selected, setSelected] = React.useState([]);
+    
+    const [data, setData] = useState(null);
+    console.log(data);
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/cineflex/showtimes/${idSessao}/seats`);
@@ -52,11 +45,13 @@ export default function Seats(props) {
                     return "available"
                 }
             }))
+            setData(response.data);
         })
+        promise.catch((error) => alert(error))
     }, []);
 
+
     function selectedSeat(index) {
-        console.log(index)
         if (selected[index] === "available") {
             selected[index] = "selected";
             setSelected([...selected]);
@@ -70,18 +65,48 @@ export default function Seats(props) {
     function reservarAssento() {
 
         const assentosSelect = [];
-        console.log(assentosSelect)
-
+       
         selected.filter((status, index) => {
             if (status === "selected") {
-                assentosSelect.push(index);
+                assentosSelect.push(id[index].id);
                 return true;
             } else {
                 return false;
             }
         });
+
+        const infos =
+        {
+            ids: assentosSelect,
+            name: customer.name,
+            cpf: customer.cpf,
+        }
+
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v3/cineflex/seats/book-many`, infos)
+
+        promise.then((response) => {
+            
+            props.setSucessoInfo({
+                filmeNome: data.movie.title,
+                data: data.day.date,
+                horario: data.name,
+                assentos: selected.map((seat, i) => seat === "selected" ? i + 1 : -1 ).filter((seat) => seat > -1),
+                nome:customer.name,
+                cpf:customer.cpf,
+            })
+
+            history.push("/sucesso");
+
+        });
+        promise.catch((error) => alert(error))
     }
 
+    if(!data){
+        return (
+            <p>Carregando</p>
+        );
+    }
+    
     return (
         <div>
             <div className="seatsContainer">
@@ -96,9 +121,16 @@ export default function Seats(props) {
                 </div>
             </div>
             <div className="statusBox">
-                <div className="seatStatus selected"></div>
-                <div className="seatStatus available"></div>
-                <div className="seatStatus unavailable"></div>
+                <div className="seatStatus selected">
+                    <h1 className="statusClass">Selecionado</h1>
+                </div>
+                <div className="seatStatus available">
+                    <h1 className="statusClass">Disponível</h1>
+                </div>
+                <div className="seatStatus unavailable">
+                    <h1 className="statusClass">Indisponível</h1>
+                </div>
+
             </div>
 
             <div className="purchaseBox">
@@ -107,11 +139,18 @@ export default function Seats(props) {
                 <p class="inputTitle">CPF do comprador:</p>
                 <input placeholder="Digite seu CPF..." id="cpf" name="cpf" type="text" onChange={onChange} />
             </div>
-            <Link to="/sucesso">
+           
                 <div className="bottomButton" onClick={reservarAssento}>
                     <p class="buttonText">Reservar assento(s)</p>
                 </div>
-            </Link>
+                <Footer>
+                    <div className="">
+                        <img className="footerImg" src={data.movie.posterURL} />
+                    </div>
+                    <div>
+                        <h1 className="footerTitle">{data.movie.title}</h1>
+                    </div> 
+            </Footer>
         </div>
     );
 }

@@ -22,6 +22,7 @@ export default function Schedule() {
             setFooterInfo(response.data)
             console.log(footerInfo)
         })
+        promise.catch((error) => alert(error))
 
     }, []);
 
@@ -47,14 +48,12 @@ export default function Schedule() {
                 )}
             </div>
             <Footer>
-                <div>
                     <div className="">
                         <img className="footerImg" src={footerInfo.posterURL} />
                     </div>
                     <div>
                         <h1 className="footerTitle">{footerInfo.title}</h1>
-                    </div>
-                </div>
+                    </div> 
             </Footer>
         </div>
     );

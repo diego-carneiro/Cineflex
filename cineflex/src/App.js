@@ -6,13 +6,23 @@ import Front_Page from "./Front_Page";
 import Schedule from "./Schedule_Page";
 import Seats from "./Seats_Page";
 import Successful from './Successful_Order';
+import { useState } from 'react';
 
 export default function App() {
 
+    const [sucessoInfo, setSucessoInfo] = useState({
+        
+        filmeNome: "",
+        data:"",
+        horario:"",
+        assentos:[],
+        nome:"",
+        cpf:"",
+    })
+    
     return (
         <BrowserRouter>
             <Header />
-            {/* <Successful  /> */}
             <Switch>
                 <Route path="/" exact>
                     <Front_Page />
@@ -21,10 +31,10 @@ export default function App() {
                     <Schedule />
                 </Route>
                 <Route path="/assentos/:idSessao" exact>
-                    {<Seats /> }
+                    <Seats setSucessoInfo = {setSucessoInfo}/> 
                 </Route>
                 <Route path="/sucesso" exact>
-                    {<Successful /> }
+                    <Successful sucessoInfo = {sucessoInfo}/> 
                 </Route>
             </Switch>
         </BrowserRouter>
