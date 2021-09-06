@@ -1,11 +1,43 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router";
+import { Link } from 'react-router-dom';
 
 export default function Seats(props) {
 
-    const numbers = [
-        { seatNumber: '01' }, { seatNumber: '02' }, { seatNumber: '03' }, { seatNumber: '04' }, { seatNumber: '05' }, { seatNumber: '06' }, { seatNumber: '07' }, { seatNumber: '08' }, { seatNumber: '09' }, { seatNumber: '10' }, { seatNumber: '11' }, { seatNumber: '12' }, { seatNumber: '13' }, { seatNumber: '14' }, { seatNumber: '15' }, { seatNumber: '16' }, { seatNumber: '17' }, { seatNumber: '18' }, { seatNumber: '19' }, { seatNumber: '20' }, { seatNumber: '21' }, { seatNumber: '22' }, { seatNumber: '23' }, { seatNumber: '24' }, { seatNumber: '25' }, { seatNumber: '26' }, { seatNumber: '27' }, { seatNumber: '28' }, { seatNumber: '29' }, { seatNumber: '30' }, { seatNumber: '31' }, { seatNumber: '32' }, { seatNumber: '33' }, { seatNumber: '34' }, { seatNumber: '35' }, { seatNumber: '36' }, { seatNumber: '37' }, { seatNumber: '38' }, { seatNumber: '39' }, { seatNumber: '40' }, { seatNumber: '41' }, { seatNumber: '42' }, { seatNumber: '43' }, { seatNumber: '44' }, { seatNumber: '45' }, { seatNumber: '46' }, { seatNumber: '47' }, { seatNumber: '48' }, { seatNumber: '49' }, { seatNumber: '50' },
-    ] 
-    const { seatNumber } = props;
-    
+    const [id, setId] = useState([]);
+    const {
+        idSessao,
+    } = useParams();
+    const [selected, setSelected] = React.useState([]);
+
+    useEffect(() => {
+        const promise = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v3/cineflex/showtimes/${idSessao}/seats`);
+
+        promise.then(response => {
+            setId([...response.data.seats])
+            setSelected(response.data.seats.map((seat) => {
+                if (seat.isAvailable === false) {
+                    return "unavailable"
+                }else{
+                    return "available"   
+                }    
+            }))
+        })
+    }, []);
+
+    function selectedSeat(index) {
+        console.log(index)
+        if (selected[index] === "available") {
+            selected[index] = "selected";
+            setSelected([...selected]);
+        } else if(selected[index] === "unavailable"){
+            alert ("A poltrona está ocupada");
+        } else {
+            selected[index] = "available"
+            setSelected([...selected]);
+        }
+    }
     return (
         <div>
             <div className="seatsContainer">
@@ -13,8 +45,9 @@ export default function Seats(props) {
                     <h1 className="interaction">Selecione o(s) assento(s)</h1>
                 </div>
                 <div className="seatsBox">
-                    {numbers.map((props) => 
-                        <div className="seatsPosition available">{props.seatNumber}</div>
+                    {id.map((data, index) =>
+                        <div className={`seatsPosition ${selected[index]}`} onClick={() => selectedSeat(index)} >{data.name}
+                        </div>
                     )}
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
-import Header from "./Header"
+import "./css/reset.css";
+import "./css/styles.css";
+import Header from "./Header";
 import Front_Page from "./Front_Page";
 import Schedule from "./Schedule_Page";
 import Seats from "./Seats_Page";

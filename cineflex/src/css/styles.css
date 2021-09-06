@@ -46,6 +46,24 @@
 }
 
 /*:::::Movies Box END:::::*/
+/* :::::Footer Box::::: */
+.footerBar{
+    width: 100vw;
+    height: 120px;
+    background-color: #DFE6ED;
+    display: flex;
+    flex-wrap: wrap;
+}
+.footerImg{
+    width: 64px;
+    height: 90px;
+    margin: 14px 10px 14px 10px;
+}
+.footerTitle{
+    font-size: 26px;
+    color:#293845
+}
+/* :::::Footer Box END::::: */
 /* :::::Schedule Box::::: */
 .scheduleBox{
     margin-left: 25px;
@@ -112,7 +130,7 @@
     width: 26px;
     height: 26px;
     border-radius: 15px;
-    margin-right: 7px;
+    margin-right: 4px;
     margin-bottom: 18px;
     display: flex;
     justify-content: center;
