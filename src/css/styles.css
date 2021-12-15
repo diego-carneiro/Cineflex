@@ -1,0 +1,139 @@
+/* :::::FrontPage::::: */
+.front-page .container{
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container .content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container .logo{
+    margin-bottom: 260px;
+}
+
+.start-button{
+    width: 345px;
+    height: 72px;
+
+    border: 3px solid #FFEF61;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* :::::FrontPage END::::: */
+
+/* :::::QuestionsPage::::: */
+.questions-page .container{
+    width: 100vw;
+    height: 100vh;
+
+    padding: 26px 32px 26px 32px;
+}
+.content .card{
+    width: 392px;
+    height: 575px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+}
+ .card-content p {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+}
+/*:::::Card Footer:::::*/
+.turn{
+    display: flex;
+    justify-content: flex-end;
+}
+#footer-turn{
+    display: flex;
+    justify-content: flex-end;
+}
+.card-footer{
+    display: flex;
+    justify-content: space-around;
+    padding: 19px 41px 19px 41px;
+}
+.card-footer p{
+    font-size: 10px;
+    text-align: center;
+}
+.card-footer .turn{
+    display: flex;
+    justify-content: flex-end;
+}
+.counter-number{
+    font-size: 18px;
+    text-align: right;
+}
+.button{
+    width: 65px;
+    height: 48px;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.now {
+    border: 3px solid #000000;
+}
+.no{
+    border: 3px solid #F74848;
+}
+.yes {
+    border: 3px solid #62DB38;
+}
+.zap {
+    border: 3px solid #FFEF61;
+}
+/*:::::Card Footer END:::::*/
+
+/* :::::QuestionsPage END::::: */
+
+/* :::::End Screen::::: */
+.result{
+    font-size: 36px;
+    font-weight: 700;
+}
+.result-sub{
+    font-size: 22px;    
+    font-weight: 400;
+}
+/* :::::End Screen END::::: */
+
+
+/* :::::Structural::::: */
+*{
+    box-sizing: border-box;  
+}
+body{
+    font-family: 'Roboto', sans-serif;
+}
+/* :::::Structural END::::: */
+
+/* :::::AUX::::: */
+.hidden{
+    display: none;
+}
+.show{
+    display: initial;
+}
+.border-red{
+    border-color: crimson;
+}
+/* :::::AUX END::::: */
