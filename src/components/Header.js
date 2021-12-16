@@ -6,20 +6,18 @@ export default function Header() {
 
     return (
 
-
-        <TopBar>
+        <Container>
             <Link to="/">
                 <p>CINEFLEX</p>
             </Link>
-        </TopBar>
-
+        </Container>
 
     );
 }
 
 /*::::: STYLES :::::*/
 
-const TopBar = styled.div`
+const Container = styled.div`
     width: 100vw;
     height: 67px;
     background-color: #C3CFD9;
@@ -37,4 +35,6 @@ const TopBar = styled.div`
         text-decoration: none;
     }
 
+    position: fixed;
+    top: 0;
 `;

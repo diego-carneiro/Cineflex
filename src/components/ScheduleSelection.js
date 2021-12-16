@@ -1,45 +1,34 @@
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+
+
 import Loading from "./Loading";
 
-export default function ScheduleSelection() {
+export default function ScheduleSelection(props) {
 
-    const { idFilme } = useParams();
-
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-
-        const promise = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/movies/${idFilme}/showtimes`);
-        promise.then(response => {
-            console.log(response)
-            // setItems(response.data.days);
-        });
-        promise.catch(error => alert(error));
-    }, []);
-
-    if (items.length === 0) {
+    if (props.items.length === 0) {
 
         return (
             <Loading />
         );
+
     }
 
     return (
         <Container>
-            {items.map(info => (
+            {props.items.map(info => (
                 <>
-                    <p>{info.weekday}</p><p>{info.date}</p>
+                    <DayHour>{info.weekday} - {info.date}</DayHour>
                     
-                    {info.showtimes.map(hours => (
-                        <Link to="/seats">
-                            <HourButton>
-                                <p>{hours.name}</p>
-                            </HourButton>
-                        </Link>
-                    ))}
+                    <ButtonBox>
+                        {info.showtimes.map(hours => (
+                            <Link to={`/showtimes/${hours.id}`}>
+                                <HourButton>
+                                    <p>{hours.name}</p>
+                                </HourButton>
+                            </Link>
+                        ))}
+                    </ButtonBox>  
                 </>
             ))}
         </Container>
@@ -48,16 +37,28 @@ export default function ScheduleSelection() {
 /*::::: STYLES :::::*/
 const Container = styled.div`
     width: 100vw;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 117px;
 
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-around;
     box-sizing: border-box;
+
+    * {
+        text-decoration: none;
+    }
 `;
 const HourButton = styled.div`
     width: 83px;
     height: 43px;
     background-color: #E8833A;
+    margin-top: 22px;
+    margin-bottom: 23px;
+    margin-right: 10px; ;
+    border-radius: 3px;
 
     display: flex;
     justify-content: center;
@@ -67,10 +68,15 @@ const HourButton = styled.div`
         font-family: 'Roboto', sans-serif;
         font-size: 20px;
         color: #FFF;
-        text-decoration: none;
     }
-    * {
-        text-decoration: none;
-    }
-
+ 
 `;
+const DayHour = styled.p`
+    font-family: 'Roboto', sans-serif;  
+    font-size: 20px;
+    color: #293845;
+`;
+const ButtonBox = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`

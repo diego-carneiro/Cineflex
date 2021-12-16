@@ -4,7 +4,7 @@ export default function Loading (){
     return(
 
         <LoadingBox>    
-                <img src="./assets/gif/loading-buffering.gif"/>
+                <img src="/assets/gif/loading-buffering.gif"/>
         </LoadingBox>
     );
 
