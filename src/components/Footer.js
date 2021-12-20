@@ -11,7 +11,7 @@ export default function Footer(props){
                 <Poster src={props.img}/> 
             </MovieIcon>
             <MovieTitle>
-                {props.title}{props.day && props.day}{props.hour && props.hour}
+                {props.title}<br/>{props.day && props.day} - {props.hour && props.hour}
             </MovieTitle>
 
         </Container>

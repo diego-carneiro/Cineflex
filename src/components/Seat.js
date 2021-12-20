@@ -3,16 +3,24 @@ import { useState } from "react";
 
 export default function Seat(props) {
     
+    let seatColor = ""; 
+    
+    if (props.isAvailable === false){
+        seatColor = "#FBE192";
+    } 
+
     const [toggled, setToggled] = useState(false);
 
     const Toggle = () => {
 
         toggled ? setToggled(false) : setToggled(true);
+        toggled ? props.desSeleccionar(props.id) : props.selecionar(props.id);
     }
-    
+
     return(
 
-        <SeatButton color={toggled} onClick={Toggle}>
+        <SeatButton color={toggled} seatColor={seatColor} 
+        onClick={Toggle} >
             <p>{props.children}</p>
         </SeatButton>
                     
@@ -23,7 +31,7 @@ export default function Seat(props) {
 const SeatButton = styled.div`
     width: 26px;
     height: 26px;
-    background-color: ${props => props.color ? "#8DD7CF" : "#C3CFD9"};
+    background-color: ${props => props.color ? "#8DD7CF" : props.seatColor };
     border: 1px solid #808F9D;
     border-radius: 22px;
     margin-right: 3px;
@@ -35,6 +43,6 @@ const SeatButton = styled.div`
 
     p {
         font-family: 'Roboto', sans-serif;
-        font-size: 18px;
+        font-size: 15px;
     }
 `;

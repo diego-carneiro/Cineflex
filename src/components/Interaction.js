@@ -6,7 +6,7 @@ export default function Interaction(props){
         return <>
         <TextBox>
             <p>{props.title}</p>
-             
+              {/* era pra mudar de cor mas n mudou */}
         </TextBox>
      </>
     } 
