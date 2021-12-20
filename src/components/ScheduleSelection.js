@@ -2,17 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 
-import Loading from "./Loading";
-
 export default function ScheduleSelection(props) {
 
-    if (props.items.length === 0) {
-
-        return (
-            <Loading />
-        );
-
-    }
 
     return (
         <Container>

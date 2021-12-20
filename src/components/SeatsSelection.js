@@ -1,46 +1,28 @@
-import React, { useState, useEffect } from "react";
+import Seat from "./Seat";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import Loading from "./Loading";
+import { Link } from "react-router-dom";
 
-export default function SeatsSelection() {
-    
-    const { idSessao } = useParams();
+export default function SeatsSelection(props) {
 
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-
-        const promise = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`);
-        promise.then(response => {
-
-            setItems(response.data.seats);
-        });
-        promise.catch(error => alert(error));
-    }, []);
-    
-    if(items.length === 0){
-        
-        return (      
-            <Loading />
-        );
-    }
-    console.log(items)
     return (
         <Container>
             <SeatsContainer>
-                {items.map(info => (
+                {props.items.map((info, index) => (
 
-                    <Seat><p>{info.name}</p></Seat>
-
-                ))} 
+                    <Seat >
+                        <p>{info.name}</p>
+                    </Seat>
+                ))}
             </SeatsContainer>
-            <Input placeholder="Digite seu nome" type="text" name="name"/>
-            <Input placeholder="Digite seu nome" type="text" name="cpf"/>
+            <Input placeholder="Digite seu nome" type="text" name="name" />
+            <Input placeholder="Digite seu nome" type="text" name="cpf" />
+            <Link to={"/finalizado"}>
+                <OrderButton>
+                    <p>Reservar assento(s)</p>
+                </OrderButton>
+            </Link>
         </Container>
     );
-
 }
 /*::::: STYLES :::::*/
 const Container = styled.div`
@@ -53,36 +35,46 @@ const Container = styled.div`
     justify-content: space-around;
     box-sizing: border-box;
 
+    * {
+        font-family: 'Roboto', sans-serif;
+        text-decoration: none;
+    }
+
 `;
 const SeatsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 `;
-const Seat = styled.div`
-    width: 26px;
-    height: 26px;
-    background-color: #C3CFD9;
-    border: 1px solid #808F9D;
-    border-radius: 22px;
-    margin-right: 3px;
-    margin-bottom: 14px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    p {
-        font-family: 'Roboto', sans-serif;
-        font-size: 18px;
-    }
-`;
 const Input = styled.input`
     width: 327px;
     height: 51px;
     border: 1px solid #D5D5D5;
+    
     border-radius: 3px;
     & ::placeholder{
         color: red;
+    }
+`;
+const Number = styled.p`
+ p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+    }
+`
+const OrderButton = styled.div`
+    width: 225px;
+    height: 42px;
+    margin-top: 10px;
+    background-color: #E8833A;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p{
+        font-size: 18px;
+        color: #FFF;
     }
 `;

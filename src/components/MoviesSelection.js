@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "./Loading";
+import Header from "../components/Header";
 
 export default function MoviesSelection() {
 
@@ -20,8 +21,11 @@ export default function MoviesSelection() {
     
     if(items.length === 0){
         
-        return (      
-            <Loading />
+        return (
+            <>
+                <Header />
+                <Loading />
+            </>
         );
     }
 

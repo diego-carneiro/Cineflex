@@ -1,7 +1,15 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function Interaction(props){
+
+    if (props.title === "Pedido feito com sucesso!"){
+        return <>
+        <TextBox>
+            <p>{props.title}</p>
+             
+        </TextBox>
+     </>
+    } 
 
     return (
         <>
@@ -17,6 +25,7 @@ export default function Interaction(props){
 const TextBox = styled.div`
     width: 100vw;
     height: 100px;
+    margin-top: 67px;
 
     display: flex;
     justify-content: center;
@@ -25,7 +34,7 @@ const TextBox = styled.div`
     p{
         font-family: 'Roboto', sans-serif;
         font-size: 24px;
-        color: #293845;
+        color: ${props => props.title === "Pedido feito com sucesso!" ? "#247A6B" : "#293845"};
     }
 
 `;

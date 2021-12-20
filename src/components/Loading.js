@@ -12,9 +12,11 @@ export default function Loading (){
 /*::::: STYLES :::::*/
 const LoadingBox = styled.div`
     width: 100vw;
+    margin-top: 150px;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     box-sizing: border-box;
 `;

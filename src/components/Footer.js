@@ -5,13 +5,19 @@ export default function Footer(props){
     return(
         
         <Container>
+            
+            {}
             <MovieIcon>
-                <Poster src={props.info.posterURL}/> 
+                <Poster src={props.img}/> 
             </MovieIcon>
-            <MovieTitle>{props.info.title}</MovieTitle>
+            <MovieTitle>
+                {props.title}{props.day && props.day}{props.hour && props.hour}
+            </MovieTitle>
+
         </Container>
-        
+       
     );
+    
 }
 const Container = styled.div`
     width: 100vw;

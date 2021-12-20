@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {  useParams } from "react-router-dom";
+import Loading from "../components/Loading";
 
 export default function Schedule() {
 
@@ -24,12 +25,22 @@ export default function Schedule() {
         promise.catch(error => alert(error));
     }, []);
 
+    if(info.length === 0){
+       
+        return (
+            <>
+                <Header />
+                <Loading />
+            </>
+        );
+    }
+
     return (
         <>
             <Header />
             <Interaction title={"Selecione o horário"}/>
             <ScheduleSelection items={items}/>
-            <Footer info={info}/>
+            <Footer img={info.posterURL} title={info.title}/>
         </>
 
     );
